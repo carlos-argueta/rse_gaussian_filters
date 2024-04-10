@@ -30,7 +30,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'kf_estimation = rse_gaussian_filters.kf_estimation:main',
+            'kf_estimation = rse_gaussian_filters.kf_estimation_no_cmd:main',
         ],
     },
 )

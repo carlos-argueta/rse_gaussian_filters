@@ -5,7 +5,7 @@
 
 import numpy as np 
 
-from ..motion_models import linear_velocity_motion_model
+from ..motion_models import velocity_motion_model
 from ..observation_models import odometry_observation_model
 
 class KalmanFilter:
@@ -15,7 +15,7 @@ class KalmanFilter:
 		self.mu = initial_state # Initial state estimate [x, y, theta]
 		self.Sigma = initial_covariance # Initial uncertainty
 
-		self.A, self.B = linear_velocity_motion_model() # The action model to use. Returns A and B matrices
+		self.A, self.B = velocity_motion_model() # The action model to use. Returns A and B matrices
 		
 		# Standard deviations for the noise in x, y, and theta (process or action model noise)
 		self.proc_noise_std = np.array(proc_noise_std)

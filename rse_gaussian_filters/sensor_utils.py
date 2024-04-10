@@ -35,6 +35,26 @@ def get_normalized_pose2D(initial_pose, current_pose):
     else:
         return (0.0, 0.0, 0.0)  # Default pose if initial pose not set
 
+def rotate_pose2D(pose, degrees):
+    # Convert degrees to radians for the rotation matrix
+    radians = np.deg2rad(degrees)
+
+    # Rotation matrix for a given degree of rotation
+    R = np.array([
+        [np.cos(radians), -np.sin(radians)],
+        [np.sin(radians),  np.cos(radians)]
+    ])
+
+    # Apply the rotation matrix to the position part of the pose
+    rotated_position = R.dot(pose[:2])
+
+    # Rotate the orientation by the same amount, ensuring it wraps correctly
+    rotated_orientation = (pose[2] + radians) % (2 * np.pi)
+
+    # Return the new pose with the rotated position and orientation
+    return (rotated_position[0], rotated_position[1], rotated_orientation)
+
+
 def get_yaw_from_quaternion(quaternion):
     rot = PyKDL.Rotation.Quaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w)
     return rot.GetRPY()[2]
